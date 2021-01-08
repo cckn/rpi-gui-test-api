@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const childProcess = require("child_process");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const NodemonPlugin = require("nodemon-webpack-plugin"); // Ding
 
 const env = process.env.NODE_ENV;
 
@@ -12,7 +13,7 @@ const removeNewLine = (buffer) => {
 module.exports = {
   mode: env,
   entry: {
-    main: "./src/app.ts",
+    app: "./src/app.ts",
   },
 
   output: {
@@ -24,8 +25,17 @@ module.exports = {
     rules: [
       //   { test: /\.js$/, use: `console.log("test")` },
 
-      { test: /\.ts$/, use: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      {
+        test: /\.ts$/,
+        use: "awesome-typescript-loader",
+        exclude: /node_modules/,
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader",
+        exclude: /node_modules/,
+      },
       { enforce: "pre", test: /\.ts$/, loader: "tslint-loader" },
     ],
   },
@@ -52,7 +62,7 @@ module.exports = {
             `,
     }),
     new CleanWebpackPlugin(),
-    ...(env === "development" ? [] : []),
+    ...(env === "development" ? [new NodemonPlugin()] : []),
   ],
 
   resolve: {
