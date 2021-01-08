@@ -1,0 +1,27 @@
+{
+  "name": "rpi-gui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch src --delay 1 --exec 'ts-node' src/app.ts",
+    "build": "cross-env NODE_ENV=development webpack --progress ",
+    "build:p": "cross-env NODE_ENV=production webpack --progress"
+  },
+  "keywords": [],
+  "author": "cckn",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "nodemon": "^2.0.7",
+    "source-map-loader": "^2.0.0",
+    "ts-node": "^9.1.1",
+    "tslint-loader": "^3.5.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.3.1"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
